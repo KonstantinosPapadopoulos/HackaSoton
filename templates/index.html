@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wildfire Prediction Tool</title>
+	<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../static/Hack.css">
+	<script src="../static/countries.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Noto+Serif+SC" rel="stylesheet">
+
+
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+      <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+    <script type='text/javascript'>
+     google.charts.load('current', {
+       'packages': ['geochart'],
+       // Note: you will need to get a mapsApiKey for your project.
+       // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+       'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+     });
+     google.charts.setOnLoadCallback(drawMarkersMap);
+
+      function drawMarkersMap() {
+      var data = google.visualization.arrayToDataTable([
+        ['City',   'Wildfire Risk (%)'],
+        ['Miami',     7],
+        ['San Diego', 3],
+          ['New York', 0.3],
+          ['Boston', 0.2],
+          ['Philadelphia', 0.1],
+          ['Austin', 2.3],
+          ['San Francisco', 1.1],
+
+      ]);
+
+
+      var options = {
+        region: 'US',
+        displayMode: 'markers',
+        colorAxis: {colors: ['green', 'orange', 'red']},
+      };
+
+      var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    };
+    </script>
+
+
+</head>
+
+
+<body style="background-color: #333">
+	<!--<div class="header">
+		<h1>
+			Wildfire Prediction Tool
+		</h1>
+	</div> -->
+    <div class="topnav">
+ 		<a href="{{ url_for('index') }}">Our Prediction</a>
+        <a href="{{ url_for('map') }}">Map</a>
+  		<a href="{{ url_for('news') }}">News</a>
+  		<a href="{{ url_for('developers') }}">Developers</a>
+
+	</div>
+
+	<div class="jumbotron" id="intro">
+        <div class="photo">
+	  <h1 class="display-4" id="topic">Wildfire Prediction Tool</h1>
+	  <p class="lead">Are you prepared for the worst?</p>
+	  <hr class="my-4">
+	  <p>Better know before it is too late.</p>
+	  <div>
+          <form action="{{ url_for('index') }}" method="post">
+              <input type="text" placeholder="Please enter city name" name="city">
+              <div></div>
+              <input class="btn btn-dark btn-lg" type="submit" value="Predict Now">
+          </form>
+          <h2 style="text-shadow: 2px 2px #1b1111;display: inline;padding: 10px;border-radius: inherit;color: white;">{{ output_prob }}</h2>
+          <div style="height: 20px;"></div>
+          <h2 style="text-shadow: 2px 2px #1b1111;display: inline;padding: 10px;border-radius: inherit;color: white;">{{ output_size }}</h2>
+      </div>
+            </div>
+	</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+</body>
+</html>
